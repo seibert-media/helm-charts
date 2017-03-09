@@ -1,0 +1,44 @@
+# Default values for jenkins.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+
+Master:
+  Name: jenkins-master
+  Image: "gcr.io/kubernetes-charts-ci/jenkins-master-k8s"
+  ImageTag: "v0.6.0"
+  ImagePullPolicy: "Always"
+  Component: "jenkins-master"
+  AdminUser: admin
+# AdminPassword: <defaults to random>
+  Cpu: "200m"
+  Memory: "256Mi"
+# Set min/max heap here if needed with:
+# JavaOpts: "-Xms512m -Xmx512m"
+  ServicePort: 8080
+# For minikube, set this to NodePort, elsewhere use LoadBalancer
+  ServiceType: LoadBalancer
+# NodePort: <to set explicitly, choose port between 30000-32767
+  ContainerPort: 8080
+  SlaveListenerPort: 50000
+  LoadBalancerSourceRanges:
+  - 0.0.0.0/0
+
+Agent:
+  Image: jenkinsci/jnlp-slave
+  ImageTag: 2.52
+  Name: jenkins-agent
+  Cpu: "200m"
+  Memory: "256Mi"
+
+Persistence:
+  Enabled: true
+  ## If defined, volume.beta.kubernetes.io/storage-class: <storageClass>
+  ## Default: volume.alpha.kubernetes.io/storage-class: default
+  ##
+  # storageClass:
+  AccessMode: ReadWriteOnce
+  Size: 8Gi
+
+Docker:
+# ConfigJson: cat ~/.docker/config.json | base64

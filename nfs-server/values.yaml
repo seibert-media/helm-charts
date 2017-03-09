@@ -1,0 +1,23 @@
+# Default values for nfs-server.
+replicaCount: 1
+image:
+  repository: gcr.io/google_containers/volume-nfs
+  tag: 0.8
+  pullPolicy: IfNotPresent
+service:
+  name: nfs-server
+  type: ClusterIP
+  # clusterIP: 10.55.243.85
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+volumeName: nfs-volume
+volumes:
+  - name: nfs-volume
+    gcePersistentDisk: 
+      pdName: "nfs-volume"
+      fsType: "ext4"

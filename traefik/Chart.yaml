@@ -1,0 +1,18 @@
+apiVersion: v1
+description: A Traefik based Kubernetes ingress controller with Let's Encrypt support
+engine: gotpl
+home: http://traefik.io/
+icon: http://traefik.io/traefik.logo.png
+keywords:
+- traefik
+- ingress
+- acme
+- letsencrypt
+maintainers:
+- email: engineering@deis.com
+  name: Deis
+name: traefik
+sources:
+- https://github.com/containous/traefik
+- https://github.com/krancour/charts/tree/master/traefik
+version: 1.1.2-d
