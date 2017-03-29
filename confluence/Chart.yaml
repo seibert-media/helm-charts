@@ -1,0 +1,10 @@
+description: Atlassian Confluence
+keywords:
+- wiki
+maintainers:
+- email: docker@seibert-media.net
+  name: //SEIBERT/MEDIA GmbH
+name: confluence
+sources:
+- https://hub.docker.com/r/seibertmedia/atlassian-confluence/
+version: 5.10.8

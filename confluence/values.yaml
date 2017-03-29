@@ -1,0 +1,37 @@
+## Confluence
+image: seibertmedia/atlassian-confluence:5.10.8
+imagePullPolicy: IfNotPresent
+
+ingressDomain: wiki.example.com
+
+serviceType: LoadBalancer
+
+httpsPort: 443
+
+resources:
+  requests:
+    memory: 1Gi
+    cpu: 500m
+  limits:
+    memory: 2Gi
+    cpu: 1
+
+persistence:
+  ## This volume persists generated configuration files, keys, and certs.
+  ##
+  confluence:
+    enabled: true
+    size: 10Gi
+    accessMode: ReadWriteOnce
+postgresql:
+  # 9.4 is currently used in the official OpenShift manifests.
+  imageTag: "9.4"
+  cpu: 1000m
+  memory: 1Gi
+
+  postgresUser: confluence
+  postgresPassword: confluence
+  postgresDatabase: confluence
+
+  persistence:
+    size: 10Gi
