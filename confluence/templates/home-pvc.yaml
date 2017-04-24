@@ -1,4 +1,4 @@
-{{- if .Values.persistence.confluence.enabled }}
+{{- if .Values.persistence.enabled }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -9,10 +9,10 @@ metadata:
   {{- end }}
 spec:
   accessModes:
-    - {{ .Values.persistence.confluence.accessMode | quote }}
+    - {{ .Values.persistence.accessMode | quote }}
   resources:
     requests:
-      storage: {{ .Values.persistence.confluence.size | quote }}
+      storage: {{ .Values.persistence.size | quote }}
   selector:
     matchLabels:
       volume: {{ template "fullname" . }}-home
