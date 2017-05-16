@@ -13,7 +13,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistence.gitlabData.size | quote }}
-  selector:
-    matchLabels:
-      volume: {{ template "fullname" . }}-data
 {{- end }}

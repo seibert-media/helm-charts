@@ -27,7 +27,16 @@ data:
     manage_accounts['enable'] = true;
     manage_storage_directories['manage_etc'] = false;
     gitlab_shell['auth_file'] = '/gitlab-data/ssh/authorized_keys';
+    gitlab_rails['gitlab_shell_ssh_port'] = {{ .Values.sshHostPort }};
+    gitlab_rails['gitlab_default_projects_features_builds'] = false;
+    gitlab_rails['gitlab_default_projects_features_issues'] = false;
+    gitlab_rails['gitlab_default_projects_features_wiki'] = false;
+    gitlab_rails['gitlab_default_projects_features_snippets'] = false;
     git_data_dir '/gitlab-data/git-data';
     gitlab_rails['shared_path'] = '/gitlab-data/shared';
     gitlab_rails['uploads_directory'] = '/gitlab-data/uploads';
     gitlab_ci['builds_directory'] = '/gitlab-data/builds';
+    nginx['listen_port'] = 80
+    nginx['listen_https'] = false
+    nginx['proxy_set_headers'] = {"X-Forwarded-Proto" => "https", "X-Forwarded-Ssl" => "on"}
+    {{ .Values.additionalConfig }}

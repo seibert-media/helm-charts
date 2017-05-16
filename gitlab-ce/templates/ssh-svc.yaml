@@ -1,20 +1,20 @@
+{{ if .Values.sshHostPort }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ template "fullname" . }}-ssh
   labels:
     app: {{ template "fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
-  type: {{ .Values.serviceType }}
+  type: NodePort
   ports:
-  - name: http
-    port: {{ .Values.httpPort | int }}
-    targetPort: http
-  - name: https
-    port: {{ .Values.httpsPort | int }}
-    targetPort: https
+  - name: ssh
+    port: {{ .Values.sshPort | int }}
+    targetPort: ssh
+    nodePort: {{ .Values.sshHostPort | int }}
   selector:
     app: {{ template "fullname" . }}
+{{ end }}
