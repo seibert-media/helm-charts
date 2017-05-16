@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+    spec:
+      containers:
+      - name: {{ template "fullname" . }}
+        image: {{ .Values.image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: TOMCAT_PROXY_NAME
+          value: {{ .Values.ingressDomain }}
+        - name: TOMCAT_PROXY_PORT
+          value: "443"
+        - name: TOMCAT_PROXY_SCHEME
+          value: https
+        - name: JVM_MEMORY_MAX
+          value: {{ .Values.maxMemoryJVM }}
+        - name: TOMCAT_PROXY_SECURE
+          value: "true"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: jira-home
+          mountPath: /var/opt/jira
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+      volumes:
+      - name: jira-home
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}-home
+      {{- else }}
+        emptyDir: {}
+      {{- end }}

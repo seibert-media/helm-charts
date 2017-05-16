@@ -1,0 +1,12 @@
+description: Atlassian JIRA
+keywords:
+- projectmanagement
+- scrum
+- agile
+maintainers:
+- email: docker@seibert-media.net
+  name: //SEIBERT/MEDIA GmbH
+name: jira
+sources:
+- https://hub.docker.com/r/seibertmedia/atlassian-jira/
+version: 7.3.6
