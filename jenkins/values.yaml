@@ -8,6 +8,7 @@ Master:
   Image: "gcr.io/kubernetes-charts-ci/jenkins-master-k8s"
   ImageTag: "v0.6.0"
   ImagePullPolicy: "Always"
+  # ImageSecret: 
   Component: "jenkins-master"
   AdminUser: admin
 # AdminPassword: <defaults to random>
