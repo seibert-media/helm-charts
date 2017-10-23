@@ -6,6 +6,7 @@ serviceType: LoadBalancer
 ingressDomain: jira.example.com
 
 maxMemoryJVM: 1G
+supportArgs:
 
 resources:
   requests:

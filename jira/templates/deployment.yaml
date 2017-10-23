@@ -27,10 +27,18 @@ spec:
           value: https
         - name: JVM_MEMORY_MAX
           value: {{ .Values.maxMemoryJVM }}
+        - name: JVM_SUPPORT_RECOMMENDED_ARGS
+          value: {{ .Values.supportArgs }}
         - name: TOMCAT_PROXY_SECURE
           value: "true"
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /secure/Dashboard.jspa
+            port: 8080
+          initialDelaySeconds: 120
+          periodSeconds: 60
         volumeMounts:
         - name: jira-home
           mountPath: /var/opt/jira
